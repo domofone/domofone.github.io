@@ -3,157 +3,1224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DomoFone Collective</title>
+    <title>Via - Ускоритель слабых ПК</title>
+    <link href="https://fonts.cdnfonts.com/css/azonix" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @font-face {
-            font-family: 'AvianoSans';
-            src: url('AvianoSansBold.ttf') format('truetype');
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        body {
-            background: #0a0a1a;
-            overflow: hidden;
-        }
-
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(157, 0, 255, 0.5), transparent);
-            filter: blur(60px);
-            animation: circle-float 6s infinite ease-in-out;
-            opacity: 0;
-        }
-
-        @keyframes circle-float {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(0);
-                opacity: 0;
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'azonix': ['Azonix', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#121212',
+                            700: '#1a1a1a',
+                            600: '#222222',
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-accent': 'linear-gradient(135deg, #00ff88 0%, #00aaff 100%)',
+                        'gradient-radial': 'radial-gradient(circle, rgba(0,255,136,0.15) 0%, rgba(0,170,255,0.05) 70%, rgba(0,0,0,0) 100%)',
+                    }
+                }
             }
         }
-
-        .content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            opacity: 0;
-            animation: text-appear 2s ease-in-out 1s forwards;
-        }
-
-        @keyframes text-appear {
-            to {
-                opacity: 1;
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-gradient {
+                @apply bg-gradient-accent bg-clip-text text-transparent;
             }
-        }
-
-        .neon-text {
-            color: #00c3ff;
-            font-size: 4rem;
-            text-shadow: 
-                0 0 5px #00c3ff,
-                0 0 10px #00c3ff,
-                0 0 20px #00c3ff,
-                0 0 40px #00c3ff;
-            animation: neon-flicker 3s ease-in-out infinite;
-        }
-
-        @keyframes neon-flicker {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-                text-shadow: 
-                    0 0 5px #00b3ff,
-                    0 0 10px #00b3ff,
-                    0 0 20px #00b3ff,
-                    0 0 40px #00b3ff;
+            .card-hover {
+                @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary-500/10;
             }
-            20%, 24%, 55% {
-                text-shadow: 
-                    0 0 10px #00f3ff,
-                    0 0 20px #00f3ff,
-                    0 0 40px #00f3ff,
-                    0 0 80px #00f3ff;
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
             }
-        }
-
-        .subtext {
-            color: #ffffff;
-            font-size: 1.5rem;
-            margin-top: 1.5rem;
-            opacity: 0.8;
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-20px); }
+            }
         }
     </style>
 </head>
-<body class="h-screen flex items-center justify-center">
-    <!-- Animated Background -->
-    <div class="animated-bg" id="animated-bg"></div>
-
-    <!-- Content -->
-    <div class="content">
-        <h1 class="neon-text font-aviano">
-            DomoFone Collective
-        </h1>
-        <p class="subtext">
-            Скоро тут появится сайт энтузиастов в сфере ИИ
-        </p>
- <a href="https://t.me/DfonGame" class="button">Перейти на Telegram</a>
-
-
-
+<body class="bg-dark-900 text-gray-200 min-h-screen font-azonix antialiased overflow-x-hidden">
+    <!-- Animated background elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-10 w-40 h-40 rounded-full bg-primary-500/10 blur-3xl animate-float"></div>
+        <div class="absolute bottom-20 right-10 w-60 h-60 rounded-full bg-primary-500/10 blur-3xl animate-float animation-delay-2000"></div>
+        <div class="absolute top-1/3 right-1/4 w-32 h-32 rounded-full bg-primary-500/10 blur-3xl animate-float animation-delay-4000"></div>
     </div>
 
-    <!-- Custom Font -->
-    <style>
-        .font-aviano {
-            font-family: 'AvianoSans', sans-serif;
-            letter-spacing: 0.1em;
-        }
-    </style>
+    <!-- Header -->
+    <header class="fixed w-full bg-dark-900/80 backdrop-blur-md z-50 border-b border-dark-700/50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+               
+                <h1 class="text-4xl font-bold text-gradient tracking-wider">VIA</h1>
+            </div>
 
-    <script>
-        function createCircle() {
-            const circle = document.createElement('div');
-            circle.classList.add('circle');
+            <nav class="hidden lg:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#features" class="hover:text-primary-400 transition uppercase text-sm tracking-wider">Возможности</a></li>
+                    <li><a href="#technology" class="hover:text-primary-400 transition uppercase text-sm tracking-wider">Технологии</a></li>
+                    <li><a href="#benchmarks" class="hover:text-primary-400 transition uppercase text-sm tracking-wider">Тесты</a></li>
+                    <li><a href="#faq" class="hover:text-primary-400 transition uppercase text-sm tracking-wider">FAQ</a></li>
+                    <li><a href="#download" class="hover:text-primary-400 transition uppercase text-sm tracking-wider">Скачать</a></li>
+                </ul>
+            </nav>
 
-            const size = Math.floor(Math.random() * 400) + 200; // Random size between 200px and 600px
-            const top = Math.random() * 100; // Random top position
-            const left = Math.random() * 100; // Random left position
-            const delay = Math.random() * 3; // Random delay between 0s and 3s
+            <div class="flex items-center space-x-4">
+                <!--- <button class="hidden md:block border border-primary-500 text-primary-400 px-6 py-2 rounded-full hover:bg-primary-900/30 transition uppercase text-sm tracking-wider">
+         Войти
+     </button> -->
+                <a href="https://forms.gle/ZTvgyZw9rwf3Q2rW7">
+                    <button class="bg-gradient-to-r from-primary-600 to-primary-500 px-6 py-2 rounded-full font-medium hover:opacity-90 transition uppercase text-sm tracking-wider">
+                        Скачать
+                    </button>
+                 </a>    
+                    <button class="lg:hidden text-gray-400 hover:text-primary-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+            </div>
+        </div>
+    </header>
 
-            circle.style.width = `${size}px`;
-            circle.style.height = `${size}px`;
-            circle.style.top = `${top}%`;
-            circle.style.left = `${left}%`;
-            circle.style.animationDelay = `${delay}s`;
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 px-6">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center">
+            <div class="lg:w-1/2 mb-16 lg:mb-0 relative z-10">
+                <div class="max-w-lg">
+                    <div class="inline-block px-4 py-2 bg-dark-700 rounded-full mb-6 border border-dark-600">
+                        <p class="text-sm text-primary-400 uppercase tracking-widest">βeta версия</p>
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                        <span class="text-gradient">Ускорьте</span> ваш слабый ПК до <span class="text-gradient">игрового</span> уровня
+                    </h1>
+                    <p class="text-lg md:text-xl mb-8 text-gray-300 font-light leading-relaxed">
+                        Via использует гибридную архитектуру с ИИ для оптимизации игровых процессов, достигая стабильных FPS даже на слабых системах.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="https://forms.gle/ZTvgyZw9rwf3Q2rW7">
+                            <button class="bg-gradient-to-r from-primary-600 to-primary-500 px-8 py-4 rounded-full font-medium hover:opacity-90 transition uppercase tracking-wider shadow-lg shadow-primary-500/20">
+                                Скачать бесплатно
+                            </button>
+                        </a>
 
-            return circle;
-        }
+                            <!---<button class="border-2 border-primary-500 text-primary-400 px-8 py-4 rounded-full font-medium hover:bg-primary-900/30 transition uppercase tracking-wider">
+            Смотреть демо
+        </button> -->
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-1/2 flex justify-center relative">
+                <div class="relative w-full max-w-2xl">
+                    <div class="absolute -inset-3 bg-gradient-to-r from-primary-500 to-primary-700 rounded-3xl blur-2xl opacity-20 animate-pulse"></div>
+                    <div class="relative bg-dark-800 rounded-2xl p-2 overflow-hidden border border-dark-700/50 shadow-2xl">
+                        <div class="bg-dark-900 rounded-xl overflow-hidden">
+                            <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_5tkzkblw.json" background="transparent" speed="1" style="width: 100%; height: auto;" loop autoplay></lottie-player>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        function generateCircles() {
-            const bg = document.getElementById('animated-bg');
-            for (let i = 0; i < 10; i++) { // Generate 10 circles
-                bg.appendChild(createCircle());
-            }
-        }
+    <!-- Logo Cloud -->
+    <!---  <section class="py-12 bg-gradient-to-b from-dark-800/50 to-dark-900/0">
+          <div class="container mx-auto px-6">
+              <p class="text-center text-gray-400 mb-8 uppercase tracking-wider text-sm">Поддерживаемые платформы</p>
+              <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-80">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Intel_HD_Graphics_logo_%282020%29.svg" alt="Intel HD Graphics" class="h-12 grayscale hover:grayscale-0 transition">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Nvidia_logo.svg" alt="Nvidia" class="h-8 grayscale hover:grayscale-0 transition">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/AMD_Logo.svg" alt="AMD" class="h-10 grayscale hover:grayscale-0 transition">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Directx-logo.svg" alt="DirectX" class="h-10 grayscale hover:grayscale-0 transition">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Vulkan_API_logo.svg" alt="Vulkan" class="h-10 grayscale hover:grayscale-0 transition">
+              </div>
+          </div>
+      </section> -->
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-6 relative">
+        <div class="absolute inset-0 bg-gradient-radial opacity-20 pointer-events-none"></div>
+        <div class="container mx-auto relative">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Как работает <span class="text-gradient">VIA</span></h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Гибридная архитектура сочетает программную эмуляцию, нативные API и искусственный интеллект для максимальной производительности
+                </p>
+            </div>
 
-        generateCircles();
-    </script>
-</body>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-dark-800 rounded-2xl overflow-hidden border border-dark-700/50 card-hover">
+                    <div class="p-8">
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">AI Game Analysis</h3>
+                        <h5 class="text-2xl font-bold mb-3">Доступно в Premier</h5>
+                        <p class="text-gray-400 mb-6">
+                            ИИ анализирует игру перед запуском, определяя оптимальные параметры для вашего железа.
+                        </p>
+                        <div class="bg-dark-700 rounded-lg p-4">
+                            <ul class="space-y-3">
+
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Выбирает между подходящими Api</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Определяет безопасные параметры для отключения</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Ускоряет рендер потоков</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-dark-800 rounded-2xl overflow-hidden border border-dark-700/50 card-hover">
+                    <div class="p-8">
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">CPU Optimization</h3>
+                        <p class="text-gray-400 mb-6">
+                            Полный контроль над процессором для максимальной производительности.
+                        </p>
+                        <div class="bg-dark-700 rounded-lg p-4">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Установка HIGH_PRIORITY_CLASS</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Ограничение потоковk</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Искусственная обработка процессов (Скоро) </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-dark-800 rounded-2xl overflow-hidden border border-dark-700/50 card-hover">
+                    <div class="p-8">
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                            </svg>
+                        </div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-3">GPU Boost (Скоро)</h3>
+                                <p class="text-gray-400 mb-6">
+                                    Оптимизация графических параметров.
+                                </p>
+                            </div>
+                            <div class="flex items-center space-x-2 bg-primary-900/30 px-3 py-1 rounded-full">
+                                <span class="text-xs text-primary-400 uppercase tracking-wider">NEW</span>
+                            </div>
+                        </div>
+                        <div class="bg-dark-700 rounded-lg p-4">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Оптимизация уже существующего GPU под более мощный</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Автоматическое переключение на более современные способы обработки</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Принудительное отключение VSync и антиалиасинга</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-dark-800 rounded-2xl overflow-hidden border border-dark-700/50 card-hover">
+                    <div class="p-8">
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">AI Dynamic Optimization</h3>
+                        <h5 class="text-2xl font-bold mb-3">Доступно в Premier</h5>
+                        <p class="text-gray-400 mb-6">
+                            Адаптивная оптимизация в реальном времени на основе анализа производительности.
+                        </p>
+                        <div class="bg-dark-700 rounded-lg p-4">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Автоматическое снижение разрешения при падении FPS</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Ограничение потоков CPU при перегреве</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Динамическое управление энергопотреблением</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Deep Dive -->
+    <section id="technology" class="py-20 px-6 bg-dark-800/50">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Технология <span class="text-gradient">VIA</span></h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Глубокая интеграция с системными компонентами для максимальной производительности
+                </p>
+            </div>
+
+            <div class="max-w-5xl mx-auto">
+                <!-- Advanced Accordion -->
+                <div class="space-y-4">
+                    <!-- Item 1 -->
+                    <div x-data="{ open: false }" class="bg-dark-700 rounded-xl overflow-hidden border border-dark-600/50 transition-all duration-300">
+                        <button @click="open = !open"
+                                class="w-full flex justify-between items-center p-6 text-left hover:bg-dark-600/50 transition">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary-600 to-primary-800 flex items-center justify-center mr-6">
+                                    <span class="text-xl font-bold">1</span>
+                                </div>
+                                <h3 class="text-2xl font-bold">Гибридная архитектура</h3>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform duration-300" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div x-show="open"
+                             x-collapse
+                             class="px-6 pb-6">
+                            <div class="pl-18 pr-6">
+                                <p class="text-gray-300 mb-6">
+                                    Via сочетает несколько подходов для достижения максимальной производительности:
+                                </p>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="bg-dark-800 p-5 rounded-lg border border-dark-700">
+                                        <h4 class="font-bold text-primary-400 mb-3">Программная эмуляция</h4>
+                                        <ul class="space-y-2 text-gray-300">
+                                         
+                                            <li class="flex items-start">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                </svg>
+                                                <span>Перевод на Vulkan\DirectX</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                </svg>
+                                                <span>Улучшенная обработка служб через посредника</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-dark-800 p-5 rounded-lg border border-dark-700">
+                                        <h4 class="font-bold text-primary-400 mb-3">Нативная оптимизация</h4>
+                                        <ul class="space-y-2 text-gray-300">
+                                            <li class="flex items-start">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                </svg>
+                                                <span>Управление CPU</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                </svg>
+                                                <span>Очистка памяти и управление кэшем</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary-500 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                </svg>
+                                                <span>Управление энергопотреблением</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-6 bg-dark-800/50 p-5 rounded-lg border border-primary-900/50">
+                                    <h4 class="font-bold text-primary-400 mb-3">🎯 Результат:</h4>
+                                    <p class="text-gray-300">
+                                        Гибридный подход позволяет достичь производительности на 30-50% выше, чем при использовании только программной эмуляции или только нативной оптимизации.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div x-data="{ open: false }" class="bg-dark-700 rounded-xl overflow-hidden border border-dark-600/50 transition-all duration-300">
+                        <button @click="open = !open"
+                                class="w-full flex justify-between items-center p-6 text-left hover:bg-dark-600/50 transition">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary-600 to-primary-800 flex items-center justify-center mr-6">
+                                    <span class="text-xl font-bold">2</span>
+                                </div>
+                                <h3 class="text-2xl font-bold">ИИ-анализ игр</h3>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform duration-300" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div x-show="open"
+                             x-collapse
+                             class="px-6 pb-6">
+                            <div class="pl-18 pr-6">
+                                <p class="text-gray-300 mb-6">
+                                    Нейросеть анализирует игровые бинарники и определяет оптимальные параметры запуска:
+                                </p>
+                                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                    <div>
+                                        <h4 class="font-bold text-primary-400 mb-3">Анализ сигнатур</h4>
+                                        <ul class="space-y-3 text-gray-300">
+                                            <li class="flex items-start">
+                                                <div class="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary-400" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <span>Определение движка игры (Unreal, Unity, etc)</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <div class="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary-400" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <span>Определение версии DirectX/Vulkan</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <div class="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary-400" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <span>Анализ требований к CPU/GPU</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-primary-400 mb-3">Оптимизация параметров</h4>
+                                        <ul class="space-y-3 text-gray-300">
+                                            <li class="flex items-start">
+                                                <div class="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary-400" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <span>Автоматический подбор разрешения</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <div class="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary-400" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <span>Оптимальные настройки графики</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <div class="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary-400" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <span>Управление FPS и VSync</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="bg-dark-800/50 p-5 rounded-lg border border-primary-900/50">
+                                    <h4 class="font-bold text-primary-400 mb-3">🎯 Результат:</h4>
+                                    <p class="text-gray-300">
+                                        ИИ определяет оптимальные параметры запуска для каждой конкретной игры на вашем железе, экономя ваше время на ручную настройку.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div x-data="{ open: false }" class="bg-dark-700 rounded-xl overflow-hidden border border-dark-600/50 transition-all duration-300">
+                        <button @click="open = !open"
+                                class="w-full flex justify-between items-center p-6 text-left hover:bg-dark-600/50 transition">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary-600 to-primary-800 flex items-center justify-center mr-6">
+                                    <span class="text-xl font-bold">3</span>
+                                </div>
+                                <h3 class="text-2xl font-bold">Динамическая адаптация</h3>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform duration-300" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div x-show="open"
+                             x-collapse
+                             class="px-6 pb-6">
+                            <div class="pl-18 pr-6">
+                                <p class="text-gray-300 mb-6">
+                                    Via постоянно мониторит производительность системы и адаптирует параметры в реальном времени:
+                                </p>
+                                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                                    <div class="bg-dark-800 p-4 rounded-lg border border-dark-700">
+                                        <h4 class="font-bold text-primary-400 mb-2 text-sm uppercase tracking-wider">CPU Load</h4>
+                                        <div class="h-2 bg-dark-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-primary-500 rounded-full" style="width: 85%"></div>
+                                        </div>
+                                        <p class="text-xs text-gray-400 mt-2">Оптимизация потоков при >90% загрузки</p>
+                                    </div>
+                                    <div class="bg-dark-800 p-4 rounded-lg border border-dark-700">
+                                        <h4 class="font-bold text-primary-400 mb-2 text-sm uppercase tracking-wider">GPU Temp</h4>
+                                        <div class="h-2 bg-dark-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-yellow-500 rounded-full" style="width: 65%"></div>
+                                        </div>
+                                        <p class="text-xs text-gray-400 mt-2">Снижение FPS при >75°C</p>
+                                    </div>
+                                    <div class="bg-dark-800 p-4 rounded-lg border border-dark-700">
+                                        <h4 class="font-bold text-primary-400 mb-2 text-sm uppercase tracking-wider">RAM Usage</h4>
+                                        <div class="h-2 bg-dark-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-red-500 rounded-full" style="width: 92%"></div>
+                                        </div>
+                                        <p class="text-xs text-gray-400 mt-2">Очистка кэша при >85% использования</p>
+                                    </div>
+                                </div>
+                                <div class="bg-dark-800/50 p-5 rounded-lg border border-primary-900/50">
+                                    <h4 class="font-bold text-primary-400 mb-3">🎯 Результат:</h4>
+                                    <p class="text-gray-300">
+                                        Система автоматически поддерживает баланс между производительностью и стабильностью, предотвращая ошибки даже при изменяющейся нагрузке.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <body class="bg-dark-800 text-gray-200 font-azonix">
+        <div class="container mx-auto px-4 py-12 max-w-5xl">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Сравнение <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-primary-400">версий</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Выберите подходящую версию для ваших потребностей</p>
+            </div>
+
+            <!-- Pricing Toggle -->
+           
+
+            <!-- Comparison Table -->
+            <div class="bg-dark-700 rounded-xl overflow-hidden border border-dark-600/50">
+                <!-- Table Header -->
+                <div class="grid grid-cols-12 border-b border-dark-600/50">
+                    <div class="col-span-6 p-6">
+                        <h3 class="text-xl font-bold">Функции</h3>
+                    </div>
+                    <div class="col-span-3 p-6 text-center">
+                        <div class="floating inline-block bg-dark-600 rounded-lg px-4 py-2">
+                            <h3 class="font-bold">Basic</h3>
+                        </div>
+                    </div>
+                    <div class="col-span-3 p-6 text-center">
+                        <div class="floating inline-block bg-gradient-to-r from-primary-600 to-primary-500 rounded-lg px-4 py-2">
+                            <h3 class="font-bold text-white">Premier</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Rows -->
+                <!-- Row 1 -->
+                <div class="grid grid-cols-12 hover:bg-dark-600/30 transition">
+                    <div class="col-span-6 p-6">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Оптимизация CPU</span>
+                        </div>
+                    </div>
+                    <div class="col-span-3 p-6 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div class="col-span-3 p-6 text-center highlight-cell">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="grid grid-cols-12 hover:bg-dark-600/30 transition">
+                    <div class="col-span-6 p-6">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Оптимизация GPU (в разработке</span>
+                        </div>
+                    </div>
+                    <div class="col-span-3 p-6 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div class="col-span-3 p-6 text-center highlight-cell">
+                        <div class="flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-1 text-sm text-primary-400">+ DXVK</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="grid grid-cols-12 hover:bg-dark-600/30 transition">
+                    <div class="col-span-6 p-6">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Управление памятью</span>
+                        </div>
+                    </div>
+                    <div class="col-span-3 p-6 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div class="col-span-3 p-6 text-center highlight-cell">
+                        <div class="flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-1 text-sm text-primary-400">+ AI Cache</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divide-y divide-dark-600/50">
+                    <!-- Row 4 -->
+
+                    <div class="grid grid-cols-12 hover:bg-dark-600/30 transition">
+                        <div class="col-span-6 p-6">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M12 1.586l-4 4v12.828l4-4V1.586zM3.707 3.293A1 1 0 002 4v10a1 1 0 00.293.707L6 18.414V5.586L3.707 3.293zM17.707 5.293L14 1.586v12.828l2.293 2.293A1 1 0 0018 16V6a1 1 0 00-.293-.707z" clip-rule="evenodd" />
+                                </svg>
+                                <span>Поддержка DX12/Vulkan</span>
+                            </div>
+                        </div>
+                        <div class="col-span-3 p-6 text-center highlight-cell">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <div class="col-span-3 p-6 text-center highlight-cell">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Row 5 -->
+                    <div class="grid grid-cols-12 hover:bg-dark-600/30 transition">
+                        <div class="col-span-6 p-6">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                                </svg>
+                                <span>AI Dynamic Optimization</span>
+                            </div>
+                        </div>
+                        <div class="col-span-3 p-6 text-center highlight-cell">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" "    />
+                            </svg>
+                        </div>
+                        <div class="col-span-3 p-6 text-center highlight-cell">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Row 6 -->
+                    <div class="grid grid-cols-12 hover:bg-dark-600/30 transition">
+                        <div class="col-span-6 p-6">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd" />
+                                </svg>
+                                <span>AI Game Analysis</span>
+                            </div>
+                        </div>
+                        <div class="col-span-3 p-6 text-center highlight-cell">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" "   />
+                            </svg>
+                        </div>
+                        <div class="col-span-3 p-6 text-center highlight-cell">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                    <!-- Row 7 -->
+                    <div class="grid grid-cols-12 hover:bg-dark-600/30 transition">
+                        <div class="col-span-6 p-6">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+                                </svg>
+                                <span>Игровые профили</span>
+                            </div>
+                        </div>
+                        <div class="col-span-3 p-6 text-center highlight-cell">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" "    />
+                            </svg>
+                        </div>
+                        <div class="col-span-3 p-6 text-center highlight-cell">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Row 8 -->
+                    <div class="grid grid-cols-12 hover:bg-dark-600/30 transition">
+                        <div class="col-span-6 p-6">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                </svg>
+                                <span>Приоритетная поддержка</span>
+                            </div>
+                        </div>
+                        <div class="col-span-3 p-6 text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
+                        <div class="col-span-3 p-6 text-center highlight-cell">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Footer -->
+                <div class="grid grid-cols-12 border-t border-dark-600/50">
+                    <div class="col-span-6 p-6">
+                        <h3 class="text-xl font-bold">Цена</h3>
+                    </div>
+                    <div class="col-span-3 p-6 text-center">
+                        <div class="mb-2">
+                            <span class="text-3xl font-bold">Бесплатно <br /> для всех!</span>
+
+                        </div>
+                        <button class="w-full bg-primary-600 hover:bg-primary-500 text-white py-2 px-4 rounded-lg transition">
+                            Подать заявку
+                        </button>
+                    </div>
+                    <div class="col-span-3 p-6 text-center highlight-cell">
+                        <div class="mb-2">
+                            <span class="text-3xl font-bold">Бесплатно <br /> после подтверждения</span>
+                            <span class="text-gray-400"></span>
+                        </div>
+                        <button class="w-full bg-gradient-to-r from-gray-600 to-blue-500 hover:opacity-90 text-white py-2 px-4 rounded-lg transition pulse">
+                            Пока недоступно
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Benchmarks Section -->
+            <section id="benchmarks" class="py-20 px-6 bg-dark-900">
+                <div class="container mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-4">Реальные <span class="text-gradient">результаты</span></h2>
+                        <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                            Тесты производительности на слабом железе (Intel Celeron N4000, 4GB RAM, Intel UHD 600)
+                        </p>
+                    </div>
+
+                    <div class="max-w-6xl mx-auto">
+                        <div class="bg-dark-800 rounded-2xl overflow-hidden border border-dark-700/50">
+                            <div class="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-dark-700">
+                                <!-- Game 1 -->
+                                <div class="p-8">
+                                    <div class="flex items-center mb-6">
+                                        <img src="https://image.api.playstation.com/vulcan/img/cfn/11307NUlRPcxCgzizu6gpFZiR_WIqYHV9W0G8obBn0J1qCXY-SjbkzKihVNA3WzUQHbD08zWVaN-a7U5--t57lc-gckkQ0f-.png" alt="Slime Rancher" class="w-16 h-16 rounded-lg mr-4">
+                                        <div>
+                                            <h3 class="font-bold text-lg">Slime Rancher</h3>
+                                            <p class="text-gray-400 text-sm">1024x768,Very Low</p>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <div class="flex justify-between text-sm mb-1">
+                                                <span class="text-gray-400">Без Via</span>
+                                                <span class="text-gray-400">5-15 FPS</span>
+                                            </div>
+                                            <div class="h-3 bg-dark-700 rounded-full overflow-hidden">
+                                                <div class="h-full bg-red-500 rounded-full" style="width: 15%"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-sm mb-1">
+                                                <span class="text-gray-400">С Via</span>
+                                                <span class="text-primary-400">10-40+ FPS</span>
+                                            </div>
+                                            <div class="h-3 bg-dark-700 rounded-full overflow-hidden">
+                                                <div class="h-full bg-primary-500 rounded-full" style="width: 75%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6 pt-6 border-t border-dark-700">
+                                        <p class="text-gray-300 text-sm">
+                                            <span class="text-primary-500">+166%</span> производительности. Игра становится приятнее.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Game 2 -->
+                                <div class="p-8">
+                                    <div class="flex items-center mb-6">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgnt4quo4Q_kW7n7X0un0wq8bVVLdcJNoh8Q&s" alt="Minecraft" class="w-16 h-16 rounded-lg mr-4">
+                                        <div>
+                                            <h3 class="font-bold text-lg">Minecraft</h3>
+                                            <p class="text-gray-400 text-sm">1920x1080, Very Low</p>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <div class="flex justify-between text-sm mb-1">
+                                                <span class="text-gray-400">Без Via</span>
+                                                <span class="text-gray-400">5-15 FPS</span>
+                                            </div>
+                                            <div class="h-3 bg-dark-700 rounded-full overflow-hidden">
+                                                <div class="h-full bg-red-500 rounded-full" style="width: 30%"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-sm mb-1">
+                                                <span class="text-gray-400">С Via</span>
+                                                <span class="text-primary-400">10-30 FPS</span>
+                                            </div>
+                                            <div class="h-3 bg-dark-700 rounded-full overflow-hidden">
+                                                <div class="h-full bg-primary-500 rounded-full" style="width: 60%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6 pt-6 border-t border-dark-700">
+                                        <p class="text-gray-300 text-sm">
+                                            <span class="text-primary-500">+100%</span> производительности. Игра запускается и работает стабильно.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Game 3 -->
+                                <div class="p-8">
+                                    <div class="flex items-center mb-6">
+                                        <img src="https://play-lh.googleusercontent.com/OIsU2cUKUhAHfwnW1b73tXg7Q0NIYQ8k4L5H43Amyv5b_n5zbxHUm832Slip4tllXcie" alt="Blender" class="w-16 h-16 rounded-lg mr-4" />
+                                        <div>
+                                            <h3 class="font-bold text-lg">Blender</h3>
+                                            <p class="text-gray-400 text-sm">1024x768</p>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <div class="flex justify-between text-sm mb-1">
+                                                <span class="text-gray-400">Без Via</span>
+                                                <span class="text-gray-400">30 Секунд</span>
+                                            </div>
+                                            <div class="h-3 bg-dark-700 rounded-full overflow-hidden">
+                                                <div class="h-full bg-red-500 rounded-full" style="width: 10%"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-sm mb-1">
+                                                <span class="text-gray-400">С Via</span>
+                                                <span class="text-primary-400">10 Секунд</span>
+                                            </div>
+                                            <div class="h-3 bg-dark-700 rounded-full overflow-hidden">
+                                                <div class="h-full bg-primary-500 rounded-full" style="width: 40%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6 pt-6 border-t border-dark-700">
+                                        <p class="text-gray-300 text-sm">
+                                            <span class="text-primary-400">+300%</span> к скорости рендера за счёт ИИ.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-12 grid md:grid-cols-2 gap-8">
+                            <div class="bg-dark-800 rounded-2xl p-8 border border-dark-700/50">
+                                <h3 class="text-2xl font-bold mb-4">Технические детали тестов</h3>
+                                <ul class="space-y-4 text-gray-300">
+                                    <li class="flex items-start">
+                                        <div class="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary-400" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <span>Все тесты проводились на одном и том же железе без перезагрузки между запусками</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary-400" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <span>FPS измерялся в одних и тех же сценах игры с помощью встроенного бенчмарка </span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary-400" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <span>При использовании Via все игры запускались с автоматически подобранными настройками</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-dark-800 rounded-2xl p-8 border border-dark-700/50">
+                                <h3 class="text-2xl font-bold mb-4">Как достичь максимальной производительности</h3>
+                                <ul class="space-y-4 text-gray-300">
+                                    <li class="flex items-start">
+                                        <div class="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary-400" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <span>Закройте все фоновые приложения перед запуском игры</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary-400" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <span>Используйте последнюю версию Via и актуальные драйверы</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary-400" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <span>Дайте ИИ 2-3 минуты на анализ перед первым запуском игры</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-dark-700/50 mt-12 pt-8 text-center">
+                    <p class="text-gray-500 text-sm">Результат не гарантирован и представлен для ознакомления!. FPS и другие показатели могут отличаться!</p>
+                </div>
+            </section>
+
+
+            <!-- FAQ Section -->
+            <section id="faq" class="py-20 px-6 bg-dark-800/50">
+                <div class="container mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-4">Частые <span class="text-gradient">вопросы</span></h2>
+                        <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                            Все, что вам нужно знать о Via и оптимизации игр
+                        </p>
+                    </div>
+
+                    <div class="max-w-4xl mx-auto">
+                        <div class="space-y-4">
+                            <!-- FAQ Item 1 -->
+                            <div x-data="{ open: false }" class="bg-dark-700 rounded-xl overflow-hidden border border-dark-600/50 transition-all duration-300">
+                                <button @click="open = !open"
+                                        class="w-full flex justify-between items-center p-6 text-left hover:bg-dark-600/50 transition">
+                                    <h3 class="text-xl font-bold">Как Via ускоряет игры на слабом железе?</h3>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform duration-300" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                <div x-show="open"
+                                     x-collapse
+                                     class="px-6 pb-6">
+                                    <div class="prose prose-invert max-w-none">
+                                        <p>Via использует комбинацию нескольких технологий:</p>
+                                        <ul>
+                                            
+                                            <li><strong>Глубокая оптимизация CPU/GPU</strong> - управление приоритетами, частотами, потоками и энергопотреблением</li>
+                                            <li><strong>Автоматическое снижение нагрузки</strong> - динамическое управление разрешением, настройками графики и FPS</li>
+                                            <li><strong>Управление памятью</strong> - очистка кэша и оптимизация использования RAM</li>
+                                        </ul>
+                                        <p>В результате даже на слабом ПК игры работают значительно плавнее и стабильнее.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FAQ Item 2 -->
+                            <div x-data="{ open: false }" class="bg-dark-700 rounded-xl overflow-hidden border border-dark-600/50 transition-all duration-300">
+                                <button @click="open = !open"
+                                        class="w-full flex justify-between items-center p-6 text-left hover:bg-dark-600/50 transition">
+                                    <h3 class="text-xl font-bold">Безопасно ли использовать Via?</h3>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform duration-300" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                <div x-show="open"
+                                     x-collapse
+                                     class="px-6 pb-6">
+                                    <div class="prose prose-invert max-w-none">
+                                        <p>Да, Via полностью безопасен:</p>
+                                        <ul>
+                                            
+                                      
+                                            <li>Все изменения реестра и системных параметров обратимы</li>
+                                            <li>Не содержит вирусов, майнеров и другого вредоносного ПО</li>
+                                            <li>Работает в рамках стандартных Windows API</li>
+                                        </ul>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+
+                            <!-- FAQ Item 4 -->
+                            <div x-data="{ open: false }" class="bg-dark-700 rounded-xl overflow-hidden border border-dark-600/50 transition-all duration-300">
+                                <button @click="open = !open"
+                                        class="w-full flex justify-between items-center p-6 text-left hover:bg-dark-600/50 transition">
+                                    <h3 class="text-xl font-bold">Как Via влияет на срок службы железа?</h3>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform duration-300" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                <div x-show="open"
+                                     x-collapse
+                                     class="px-6 pb-6">
+                                    <div class="prose prose-invert max-w-none">
+                                        <p>Via разработан с учетом безопасности вашего оборудования:</p>
+                                        <ul>
+                                            <li><strong>Контроль температуры:</strong> Система автоматически снижает нагрузку при перегреве</li>
+                                            <li><strong>Оптимальные частоты:</strong> Не разгоняет железо сверх спецификаций</li>
+                                            <li><strong>Баланс нагрузки:</strong> Равномерно распределяет нагрузку между ядрами CPU</li>
+                                            <li><strong>Энергопотребление:</strong> Использует адаптивные алгоритмы для минимизации износа</li>
+                                        </ul>
+                                        <p>При нормальных условиях эксплуатации Via не сокращает срок службы вашего ПК. Однако при длительных игровых сессиях на пределе возможностей железа рекомендуется обеспечить хорошее охлаждение.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FAQ Item 5 -->
+                            <div x-data="{ open: false }" class="bg-dark-700 rounded-xl overflow-hidden border border-dark-600/50 transition-all duration-300">
+                                <button @click="open = !open"
+                                        class="w-full flex justify-between items-center p-6 text-left hover:bg-dark-600/50 transition">
+                                    <h3 class="text-xl font-bold">Можно ли использовать Via на ноутбуке?</h3>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform duration-300" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                <div x-show="open"
+                                     x-collapse
+                                     class="px-6 pb-6">
+                                    <div class="prose prose-invert max-w-none">
+                                        <p>Да, Via отлично работает на ноутбуках и даже предлагает специальные оптимизации:</p>
+                                        <ul>
+                                            <li><strong>Режим энергосбережения:</strong> Для увеличения времени работы от батареи</li>
+                                            <li><strong>Контроль температуры:</strong> Особенно важен для компактных корпусов</li>
+                                            <li><strong>Оптимизация вентиляторов:</strong> Баланс между шумом и охлаждением</li>
+                                            <li><strong>Автоматические профили:</strong> Разные настройки для работы от сети и батареи</li>
+                                        </ul>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-12 text-center">
+                            <p class="text-gray-400 mb-6">Не нашли ответ на свой вопрос?</p>
+                            <button class="border-2 border-primary-500 text-primary-400 px-8 py-4 rounded-full font-medium hover:bg-primary-900/30 transition uppercase tracking-wider">
+                                Написать в поддержку
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section id="download" class="py-20 px-6 bg-gradient-to-br from-dark-800 to-dark-900">
+                <div class="container mx-auto text-center">
+                    <div class="max-w-2xl mx-auto bg-dark-800/50 rounded-2xl p-8 border border-dark-700/50 backdrop-blur-sm">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6">Готовы ускорить ваш ПК?</h2>
+                        <p class="text-xl text-gray-300 mb-8">Скачайте Via и получите +50-300% FPS уже сегодня</p>
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <a href="https://forms.gle/ZTvgyZw9rwf3Q2rW7">
+                                <button class="bg-gradient-to-r from-primary-600 to-primary-500 px-8 py-4 rounded-full font-medium hover:opacity-90 transition uppercase tracking-wider shadow-lg shadow-primary-500/20">
+                                    Получить бета-версию
+                                </button>
+                            </a>
+                            <button class="border-2 border-primary-500 text-primary-400 px-8 py-4 rounded-full font-medium hover:bg-primary-900/30 transition uppercase tracking-wider">
+                                Узнать больше
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-6">Windows 10/11, 64-bit | Версия 0.0.3 </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="bg-dark-900 py-12 px-6 border-t border-dark-700/50">
+                <div class="container mx-auto">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="flex items-center space-x-3 mb-6 md:mb-0">
+                           
+                            <span class="text-3xl font-bold text-gradient">VIA</span>
+                            <span class="text-l font-bold text-white-200">by DomoFone</span>
+                        </div>
+
+
+                        <!-- Футер с иконками соцсетей -->
+                        <div class="flex space-x-6">
+                            <!-- TikTok -->
+                            <a href="https://www.tiktok.com/@domofone"class="text-gray-400 hover:text-[#FE2C55] transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+                                </svg>
+                            </a>
+
+                            <!-- Telegram -->
+                            <a href="https://t.me/DfonGame" class="text-gray-400 hover:text-[#0088CC] transition"> 
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                                </svg>
+                            </a>
+
+                            <!-- YouTube -->
+                            <a href="https://youtube.com/@dfonMedia" class="text-gray-400 hover:text-[#FF0000] transition">
+                                
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                                </svg>
+                            </a>
+
+                            <!-- Яндекс Дзен -->
+                            <a href="#" class="text-gray-400 hover:text-[#000000] transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.642 19.412h-1.824v-5.784l-3.541 1.89v-1.036l5.365-2.766v7.696zM17.59 6.25c-.678 0-1.372.534-1.372 1.314v8.45c0 .78.694 1.313 1.372 1.313.677 0 1.371-.533 1.371-1.313v-8.45c0-.78-.694-1.314-1.371-1.314zm-12.522.781H7.92v8.45H5.068v-8.45z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-dark-700/50 mt-12 pt-8 text-center">
+                        <p class="text-gray-500 text-sm">Результат не гарантирован и представлен для ознакомления!. FPS и другие показатели могут отличаться!</p>
+                    </div>
+                </div>
+            </footer>
+
+            <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+            <script>
+                // Smooth scroll for anchor links
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+
+                // Floating animation for elements
+                const floatingElements = document.querySelectorAll('.animate-float');
+                floatingElements.forEach((el, index) => {
+                    el.style.animationDelay = `${index * 1000}ms`;
+                });
+            </script>
+    </body>
 </html>
