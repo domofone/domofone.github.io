@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спасибо — Голос, который согреет сердце (GoFile JSON API)</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    
+    <style>
+        /* ... СТИЛИ (CSS) остаются без изменений ... */
+        :root {
+            --dark: #0f172a; 
+            --light: #f8fafc;
+            --accent: #a855f7; 
+            --card-dark: #1e293b;
+            --success: #4ade80;
+            --warning: #f7a855;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px 30px;
+            background: linear-gradient(180deg, var(--dark), var(--card-dark));
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        /* Основной блок */
+        #recording-section, #receiver-view .message-box {
+            padding: 30px;
+            background-color: var(--card-dark);
+            border-radius: 15px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+        }
+        
+        input[type="email"], input[type="text"], textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid var(--accent);
+            background-color: var(--dark);
+            color: var(--light);
+            box-sizing: border-box;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        .btn {
+            background-color: var(--accent);
+            color: var(--light);
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+            margin: 5px;
+        }
+
+        .btn:hover:not(:disabled) { background-color: #7c3aed; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        #recording-status, #rcv-status {
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--success); 
+        }
+
+        #receiver-view {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="sender-view">
+        
+        <section class="hero">
+            <h1>Спасибо — Голос, который согреет сердце.</h1>
+            <p>Ваше сообщение **не хранится** на этом сайте. Используется **GoFile** для безопасной передачи (TTL 7 дней).</p>
+        </section>
+
+        <section id="recording-section">
+            <h2>Шаг 1: Запись голосового Спасибо</h2>
+            
+            <p id="recording-status">Нажмите "Начать запись".</p>
+
+            <div id="controls">
+                <button id="start-btn" class="btn">Начать запись</button>
+                <button id="stop-btn" class="btn" disabled>Остановить</button>
+                <audio id="playback" controls style="width: 90%; margin: 15px 0; display: none;"></audio>
+            </div>
+            
+            <form id="send-form">
+                <h2>Шаг 2: Информация для отправки</h2>
+                <label for="recipient-email">Email получателя:</label>
+                <input type="email" id="recipient-email" required placeholder="friend@email.com">
+
+                <label for="sender-name">Ваше имя:</label>
+                <input type="text" id="sender-name" required placeholder="Например, Иван">
+                
+                <label for="custom-message">Текстовое сообщение (будет в письме):</label>
+                <textarea id="custom-message" rows="3" placeholder="Я очень дорожу нашей дружбой..."></textarea>
+                
+                <button type="submit" class="btn" id="submit-btn" disabled style="width: 100%; margin-top: 20px; background-color: var(--success);">
+                    Шаг 3: Отправить и Сформировать письмо
+                </button>
+            </form>
+            
+            <p id="message-response" style="margin-top: 15px;"></p>
+        </section>
+    </div>
+    
+    <div class="container" id="receiver-view" style="display:none;"></div>
+
+<script>
+    // --- Конфигурация ---
+    const HOSTING_BASE_URL = window.location.origin + window.location.pathname; 
+    const GOFILE_GET_SERVER_URL = 'https://api.gofile.io/getServer';
+    
+    // --- DOM-элементы --- (без изменений)
+    const senderView = document.getElementById('sender-view');
+    const receiverView = document.getElementById('receiver-view');
+    const startBtn = document.getElementById('start-btn');
+    const stopBtn = document.getElementById('stop-btn');
+    const playback = document.getElementById('playback');
+    const status = document.getElementById('recording-status');
+    const sendForm = document.getElementById('send-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const responseMsg = document.getElementById('message-response');
+
+    let mediaRecorder;
+    let audioBlob = null;
+    let encryptionKey = null;
+
+    // 1. Запись голоса (без изменений)
+    startBtn.onclick = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            let audioChunks = [];
+            
+            mediaRecorder.ondataavailable = event => { audioChunks.push(event.data); };
+
+            mediaRecorder.onstop = () => {
+                audioBlob = new Blob(audioChunks, { type: 'audio/mp3' }); 
+                playback.src = URL.createObjectURL(audioBlob);
+                playback.style.display = 'block';
+                
+                submitBtn.disabled = false;
+                status.textContent = '✅ Запись готова. Нажмите кнопку в Шаге 3.';
+            };
+
+            mediaRecorder.start();
+            status.textContent = '🔴 Идет запись...';
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            submitBtn.disabled = true;
+            playback.style.display = 'none';
+
+        } catch (err) {
+            status.textContent = '❌ Ошибка доступа к микрофону. Разрешите доступ.';
+        }
+    };
+
+    stopBtn.onclick = () => {
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+            mediaRecorder.stream.getTracks().forEach(track => track.stop());
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+        }
+    };
+    
+    // 2. Шифрование и Автоматическая Загрузка (GoFile)
+    sendForm.onsubmit = async (e) => {
+        e.preventDefault();
+        
+        if (!audioBlob) {
+            responseMsg.textContent = 'Сначала запишите голосовое сообщение.';
+            return;
+        }
+        
+        submitBtn.disabled = true;
+        responseMsg.textContent = 'Шаг 3: Идет шифрование и автоматическая загрузка файла... (Ожидайте)';
+
+        try {
+            // --- ШАГ 1: ГЕНЕРАЦИЯ КЛЮЧА И ШИФРОВАНИЕ (E2EE) ---
+            encryptionKey = CryptoJS.lib.WordArray.random(256/8).toString(); 
+            const fileName = `message_${Date.now().toString(36)}.enc`; 
+            
+            const reader = new FileReader();
+            reader.readAsDataURL(audioBlob);
+            await new Promise(resolve => reader.onloadend = resolve);
+            
+            const base64Audio = reader.result.split(',')[1];
+            const encryptedData = CryptoJS.AES.encrypt(base64Audio, encryptionKey).toString();
+            
+            // Конвертируем зашифрованные данные в FormData
+            const encryptedBlob = new Blob([encryptedData], {type: 'text/plain'});
+            const formData = new FormData();
+            formData.append('file', encryptedBlob, fileName); 
+            formData.append('expire', '7d'); // Установка срока жизни - 7 дней
+            
+            // --- ШАГ 2: ПОЛУЧЕНИЕ СЕРВЕРА GoFile ---
+            responseMsg.textContent = 'Получаем адрес сервера GoFile...';
+            const serverResponse = await fetch(GOFILE_GET_SERVER_URL);
+            const serverJson = await serverResponse.json();
+            
+            if (serverJson.status !== 'ok' || !serverJson.data || !serverJson.data.server) {
+                throw new Error(`GoFile API (Сервер): ${serverJson.status}`);
+            }
+            const uploadServer = serverJson.data.server;
+            const UPLOAD_URL = `https://${uploadServer}.gofile.io/uploadFile`;
+
+            // --- ШАГ 3: АВТОМАТИЧЕСКАЯ ЗАГРУЗКА ---
+            responseMsg.textContent = `Загрузка файла (${(encryptedBlob.size / 1024).toFixed(2)} КБ) на ${uploadServer}...`;
+
+            const uploadResponse = await fetch(UPLOAD_URL, { 
+                method: 'POST', 
+                body: formData 
+            });
+
+            const uploadJson = await uploadResponse.json();
+
+            if (uploadJson.status !== 'ok' || !uploadJson.data || !uploadJson.data.downloadPage) {
+                let status = uploadJson.status || 'Unknown';
+                throw new Error(`GoFile API (Загрузка): ${status}. Ошибка: ${uploadJson.message || 'Неизвестно'}`);
+            }
+            
+            const fileLinkPage = uploadJson.data.downloadPage;
+            
+            // --- ШАГ 4: ФОРМИРОВАНИЕ И ОТПРАВКА MAILTO ---
+            const email = document.getElementById('recipient-email').value;
+            const senderName = document.getElementById('sender-name').value;
+            const message = document.getElementById('custom-message').value;
+
+            // Ссылка для получателя: содержит ключ (key) и ссылку на страницу файла (file)
+            const fullLink = `${HOSTING_BASE_URL}?key=${encryptionKey}&file=${encodeURIComponent(fileLinkPage)}`; 
+            
+            // Формируем Mailto ссылку
+            const emailSubject = encodeURIComponent(`⭐ Голосовое Спасибо от ${senderName}!`);
+            const emailBody = encodeURIComponent(
+                `Привет!\n\n${senderName} отправил(а) тебе личное голосовое сообщение.\n\n***\n${message}\n***\n\nПрослушать его можно по этой ссылке:\n${fullLink}\n\nВАЖНО: Файл будет автоматически удален GoFile через 7 дней.\n\nС заботой, "Спасибо".`
+            );
+            
+            const mailtoLink = `mailto:${email}?subject=${emailSubject}&body=${emailBody}`;
+            
+            // Открываем почтовый клиент
+            window.location.href = mailtoLink;
+            
+            responseMsg.textContent = '✅ Готово! Открывается почтовый клиент. Сообщение безопасно отправлено.';
+            submitBtn.disabled = true;
+
+        } catch (error) {
+            console.error('Критическая ошибка:', error);
+            responseMsg.textContent = `❌ Критическая ошибка: ${error.message || 'Не удалось завершить операцию.'} (Проверьте, запущен ли локальный сервер!)`;
+            responseMsg.style.color = 'var(--danger)';
+        } finally {
+            submitBtn.disabled = false;
+        }
+    };
+
+
+    // --- ФУНКЦИИ ПОЛУЧАТЕЛЯ (GoFile) ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const encryptionKey = urlParams.get('key');
+        const fileLink = urlParams.get('file');
+
+        if (encryptionKey && fileLink) {
+            senderView.style.display = 'none'; 
+            receiverView.style.display = 'block';
+            decryptAndLoadMessage(encryptionKey, decodeURIComponent(fileLink));
+        } 
+    });
+
+    async function decryptAndLoadMessage(encryptionKey, fileLinkPage) {
+        receiverView.innerHTML = `
+            <div class="message-box">
+                <h1>Твое голосовое Спасибо!</h1>
+                <p id="rcv-status">Шаг 1: Получаем прямую ссылку на скачивание...</p>
+                <button id="rcv-decrypt-btn" class="btn" disabled style="background-color: var(--warning);">Шаг 2: Расшифровать и Прослушать</button>
+                <audio id="rcv-audio-player" controls style="width: 100%; margin-top: 20px; display: none;"></audio>
+            </div>
+        `;
+
+        const statusElem = document.getElementById('rcv-status');
+        const decryptBtn = document.getElementById('rcv-decrypt-btn');
+        const audioPlayer = document.getElementById('rcv-audio-player');
+        
+        try {
+            // ШАГ 1: Извлекаем ID файла из URL
+            const urlParts = fileLinkPage.split('/');
+            const folderId = urlParts[urlParts.length - 1]; 
+            
+            // ШАГ 2: Получаем информацию о файле и прямую ссылку
+            statusElem.textContent = 'Получаем прямую ссылку на скачивание...';
+            const infoUrl = `https://api.gofile.io/getContent?contentId=${folderId}`;
+            
+            const infoResponse = await fetch(infoUrl);
+            const infoJson = await infoResponse.json();
+
+            if (infoJson.status !== 'ok' || !infoJson.data || !infoJson.data.contents || infoJson.data.contents.length === 0) {
+                throw new Error(`GoFile API (Контент): ${infoJson.status}. Файл удален или не существует.`);
+            }
+            
+            // Нам нужен только первый файл в папке
+            const fileInfo = infoJson.data.contents[0];
+            const fileDownloadUrl = fileInfo.link;
+
+            // ШАГ 3: Скачивание зашифрованного файла
+            statusElem.textContent = 'Скачиваем зашифрованный файл...';
+            
+            const downloadResponse = await fetch(fileDownloadUrl);
+            
+            if (!downloadResponse.ok) {
+                throw new Error(`Ошибка скачивания: ${downloadResponse.status}.`);
+            }
+            
+            // Получаем зашифрованный текст
+            const downloadedEncryptedData = await downloadResponse.text();
+            
+            statusElem.textContent = '✅ Файл скачан. Нажмите "Расшифровать".';
+            statusElem.style.color = 'var(--success)';
+            decryptBtn.disabled = false;
+            
+            // ШАГ 4: Расшифровка в браузере (при нажатии)
+            decryptBtn.onclick = () => {
+                statusElem.textContent = 'Расшифровка голосового сообщения...';
+                statusElem.style.color = 'var(--warning)';
+                decryptBtn.disabled = true;
+
+                try {
+                    const decryptedBytes = CryptoJS.AES.decrypt(downloadedEncryptedData, encryptionKey);
+                    const base64Audio = decryptedBytes.toString(CryptoJS.enc.Base64);
+                    
+                    if (!base64Audio || base64Audio.length < 100) { 
+                        throw new Error('Неверный ключ или повреждение данных.');
+                    }
+
+                    const audioDataUrl = `data:audio/mp3;base64,${base64Audio}`;
+                    audioPlayer.src = audioDataUrl;
+                    
+                    statusElem.textContent = 'Сообщение готово к прослушиванию.';
+                    statusElem.style.color = 'var(--success)';
+                    audioPlayer.style.display = 'block';
+                    audioPlayer.play();
+                    
+                } catch (error) {
+                    statusElem.textContent = `❌ Ошибка расшифровки. Проверьте, что ключ верен.`;
+                    statusElem.style.color = 'var(--danger)';
+                }
+            };
+
+        } catch (error) {
+            console.error('Ошибка получателя:', error);
+            statusElem.textContent = `❌ Критическая ошибка: ${error.message || 'Не удалось завершить операцию.'}`;
+            statusElem.style.color = 'var(--danger)';
+        }
+    }
+</script>
+
+</body>
+</html>
