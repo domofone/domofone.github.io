@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НейроИнтенсивы | Экосистема Будущего</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Montserrat:ital,wght@0,300;0,700;0,900;1,900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #020408;
+            --accent-primary: #6366f1;
+            --accent-secondary: #a855f7;
+            --accent-tertiary: #ec4899;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--color-bg);
+            color: #e2e8f0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+            background-size: 40px 40px;
+            z-index: -1;
+            mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+        }
+
+        .aurora-container {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            filter: blur(120px);
+            opacity: 0.4;
+        }
+
+        .aurora-blob {
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            border-radius: 50%;
+            animation: move 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes move {
+            0% { transform: translate(-10%, -10%) rotate(0deg); }
+            50% { transform: translate(20%, 15%) rotate(90deg); }
+            100% { transform: translate(-5%, 25%) rotate(180deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-8px);
+        }
+
+        .font-display { font-family: 'Montserrat', sans-serif; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #fff 30%, rgba(255, 255, 255, 0.5) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .vibrant-gradient-text {
+            background: linear-gradient(to right, #818cf8, #c084fc, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            width: 100%;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .portal-bg {
+            background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--color-bg); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="bg-mesh"></div>
+    
+    <div class="aurora-container">
+        <div class="aurora-blob bg-indigo-600 top-[-10%] left-[-10%]"></div>
+        <div class="aurora-blob bg-purple-700 bottom-[-10%] right-[-10%]" style="animation-delay: -5s;"></div>
+        <div class="aurora-blob bg-fuchsia-900 top-[20%] right-[10%]" style="animation-delay: -10s;"></div>
+    </div>
+
+    <!-- Навигация -->
+    <nav class="fixed top-0 w-full z-50 py-6 px-4 md:px-10">
+        <div class="max-w-6xl mx-auto flex justify-between items-center glass-card px-6 md:px-8 py-3 bg-black/20">
+            <div class="font-display font-black text-lg tracking-tighter italic uppercase">
+                Нейро<span class="text-indigo-400">Интенсивы</span>
+            </div>
+            <div class="hidden md:flex gap-8 text-[9px] font-bold uppercase tracking-[0.3em] text-white/50">
+                <a href="#about" class="hover:text-white transition-all">О проекте</a>
+                <a href="#philosophy" class="hover:text-white transition-all">Идея</a>
+                <a href="#vectors" class="hover:text-white transition-all">Векторы</a>
+                <a href="#program" class="hover:text-white transition-all">Программа</a>
+            </div>
+            <button class="text-[9px] font-black uppercase tracking-widest border border-white/20 px-5 py-2 rounded-full hover:bg-white hover:text-black transition-all">
+                Личный кабинет
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center px-6 pt-20">
+        <div class="text-center space-y-6 max-w-5xl">
+            <div class="reveal active">
+                <span class="text-[10px] font-bold uppercase tracking-[0.5em] text-indigo-400 inline-block mb-4">Черняховск • Эпицентр Новых Смыслов</span>
+                <div class="glow-line opacity-30"></div>
+            </div>
+            
+            <h1 class="font-display font-black italic uppercase leading-[0.85] reveal active" style="transition-delay: 200ms;">
+                <span class="text-5xl md:text-8xl lg:text-[130px] block gradient-text">СОЗДАВАЙ</span>
+                <span class="text-5xl md:text-8xl lg:text-[130px] block vibrant-gradient-text">БУДУЩЕЕ</span>
+            </h1>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-10 mt-12 reveal active" style="transition-delay: 400ms;">
+                <div class="text-left space-y-4 max-w-md border-l-2 border-indigo-500/50 pl-8">
+                    <p class="text-white text-lg font-medium leading-tight">Твой интеллект в синергии с мощью нейросетей.</p>
+                    <p class="text-white/40 text-sm leading-relaxed">Мы открываем доступ к инструментам, которые меняют правила игры. Образовательный проект для тех, кто готов выйти за рамки привычного.</p>
+                </div>
+                <div class="flex flex-col gap-4 w-full md:w-auto">
+                    <a href="#join" class="bg-white text-center text-black font-black uppercase text-[10px] px-12 py-5 rounded-full tracking-[0.2em] hover:scale-105 transition-transform whitespace-nowrap">
+                        Стать резидентом
+                    </a>
+                    <p class="text-center text-[9px] text-white/30 uppercase tracking-widest">Ограниченный набор в летний поток</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Идея и Манифест -->
+    <section id="philosophy" class="py-32 relative portal-bg">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center reveal">
+                <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-indigo-400 mb-6 block">Наш Манифест</span>
+                <h2 class="text-4xl md:text-6xl font-display font-black italic uppercase gradient-text mb-12">Технологии <br>для Человека</h2>
+                
+                <div class="grid md:grid-cols-2 gap-12 text-left">
+                    <div class="space-y-6">
+                        <p class="text-white/70 leading-relaxed font-light">
+                            Мы верим, что Искусственный Интеллект — это не замена человеческого творчества, а его мощнейший катализатор. В мире, перенасыщенном информацией, критически важным становится умение <span class="text-indigo-400 font-bold">созидать</span>, а не просто потреблять.
+                        </p>
+                        <div class="h-[1px] w-full bg-gradient-to-r from-indigo-500/50 to-transparent"></div>
+                        <p class="text-white/40 text-sm italic">
+                            «Идея проекта родилась из желания превратить Черняховск в точку притяжения для цифровых кочевников и креаторов нового поколения».
+                        </p>
+                    </div>
+                    <div class="space-y-6">
+                        <p class="text-white/70 leading-relaxed font-light">
+                            Проект «НейроИнтенсивы» — это мост между сложными алгоритмами и живым воображением. Мы даем не просто инструкции, а методологию «быстрого старта», позволяющую пройти путь от новичка до автора полноценного цифрового продукта.
+                        </p>
+                        <div class="flex items-center gap-4 pt-4">
+                            <div class="flex -space-x-4">
+                                <div class="w-10 h-10 rounded-full border-2 border-indigo-900 bg-indigo-600 flex items-center justify-center text-[8px] font-bold italic">AI</div>
+                                <div class="w-10 h-10 rounded-full border-2 border-indigo-900 bg-purple-600 flex items-center justify-center text-[8px] font-bold italic">HUMAN</div>
+                            </div>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-white/30">Синтез навыков</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Метаморфоза (Было/Стало) -->
+    <section class="py-24 border-y border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-1 border border-white/10 rounded-[32px] overflow-hidden bg-white/5">
+                <div class="p-12 md:p-16 flex flex-col justify-center space-y-6">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-white/30">Старая парадигма</span>
+                    <h3 class="text-3xl font-display font-black uppercase italic text-white/40">Ожидание <br>вдохновения</h3>
+                    <ul class="space-y-4 text-sm text-white/30 font-light">
+                        <li>— Многочасовой поиск идей</li>
+                        <li>— Рутинный монтаж и обработка</li>
+                        <li>— Ограничение техническими навыками</li>
+                        <li>— Страх перед «чистым листом»</li>
+                    </ul>
+                </div>
+                <div class="p-12 md:p-16 bg-indigo-600/10 flex flex-col justify-center space-y-6 relative">
+                    <div class="absolute top-8 right-8 text-indigo-400 opacity-20">
+                        <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-indigo-400">Нейро-парадигма</span>
+                    <h3 class="text-3xl font-display font-black uppercase italic text-indigo-400">Управление <br>хаосом</h3>
+                    <ul class="space-y-4 text-sm text-white/80 font-light">
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span> Мгновенная визуализация смыслов</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span> ИИ как персональная фабрика контента</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span> Масштабирование идей х10</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span> Творчество без барьеров</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Направления (Векторы) -->
+    <section id="vectors" class="py-32">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-24 reveal">
+                <h2 class="text-4xl md:text-6xl font-display font-black italic uppercase mb-6">4 Вектора <br><span class="vibrant-gradient-text">Мастерства</span></h2>
+                <p class="text-white/40 uppercase text-[10px] tracking-[0.4em]">Выбери свою специализацию в новой реальности</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Промпт -->
+                <div class="glass-card p-10 flex flex-col reveal" style="transition-delay: 100ms;">
+                    <div class="text-indigo-400 mb-8">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter italic">Смысловой <br>Инжиниринг</h3>
+                    <p class="text-sm text-white/40 mb-8 flex-grow">Управление текстовыми моделями. Создание лонгридов, сценариев и бизнес-стратегий через идеальные промпты.</p>
+                    <ul class="text-[10px] uppercase font-bold tracking-widest space-y-2 text-indigo-300/70 border-t border-white/5 pt-6">
+                        <li>• ChatGPT / Claude 3</li>
+                        <li>• Prompt Frameworks</li>
+                        <li>• Ролевой дизайн</li>
+                    </ul>
+                </div>
+
+                <!-- Визуал -->
+                <div class="glass-card p-10 flex flex-col reveal" style="transition-delay: 200ms;">
+                    <div class="text-purple-400 mb-8">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter italic">Генеративный <br>Арт</h3>
+                    <p class="text-sm text-white/40 mb-8 flex-grow">Создание фотореалистичных изображений, иллюстраций и интерфейсов, которые невозможно отличить от работы профи.</p>
+                    <ul class="text-[10px] uppercase font-bold tracking-widest space-y-2 text-purple-300/70 border-t border-white/5 pt-6">
+                        <li>• Midjourney v6.1</li>
+                        <li>• Stable Diffusion XL</li>
+                        <li>• In-painting / Out-painting</li>
+                    </ul>
+                </div>
+
+                <!-- Видео -->
+                <div class="glass-card p-10 flex flex-col reveal" style="transition-delay: 300ms;">
+                    <div class="text-pink-400 mb-8">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter italic">Motion <br>Synthesis</h3>
+                    <p class="text-sm text-white/40 mb-8 flex-grow">Оживление статики. Генерация видео из текста и картинок, клонирование голоса и создание саундтреков.</p>
+                    <ul class="text-[10px] uppercase font-bold tracking-widest space-y-2 text-pink-300/70 border-t border-white/5 pt-6">
+                        <li>• Runway / Luma / Pika</li>
+                        <li>• ElevenLabs Voice Sync</li>
+                        <li>• Suno v3.5 Composition</li>
+                    </ul>
+                </div>
+
+                <!-- Продуктивность -->
+                <div class="glass-card p-10 flex flex-col reveal" style="transition-delay: 400ms;">
+                    <div class="text-amber-400 mb-8">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter italic">AI <br>Productivity</h3>
+                    <p class="text-sm text-white/40 mb-8 flex-grow">Автоматизация жизни и работы. Сборка кастомных GPT-ассистентов и интеграция ИИ в ежедневные задачи.</p>
+                    <ul class="text-[10px] uppercase font-bold tracking-widest space-y-2 text-amber-300/70 border-t border-white/5 pt-6">
+                        <li>• Custom GPT Builders</li>
+                        <li>• Automation Workflows</li>
+                        <li>• AI-Notion Architect</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Программа курса -->
+    <section id="program" class="py-32 bg-white/5">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="mb-20 reveal">
+                <span class="text-[10px] font-bold uppercase tracking-[0.5em] text-indigo-400 block mb-4">Образовательный Трек</span>
+                <h2 class="text-4xl md:text-5xl font-display font-black italic uppercase">20 дней <br>трансформации</h2>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Шаг 1 -->
+                <div class="glass-card p-8 reveal group cursor-default">
+                    <div class="flex gap-8 items-center">
+                        <div class="text-4xl font-display font-black text-white/10 group-hover:text-indigo-500/30 transition-colors shrink-0">01</div>
+                        <div>
+                            <h4 class="text-lg font-bold uppercase tracking-tight mb-2">Deep Dive: Фундамент</h4>
+                            <p class="text-sm text-white/40 leading-relaxed italic">«Как думает машина?». Настройка рабочего окружения, регистрация в зарубежных сервисах и освоение базы LLM-моделей.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Шаг 2 -->
+                <div class="glass-card p-8 reveal group cursor-default">
+                    <div class="flex gap-8 items-center">
+                        <div class="text-4xl font-display font-black text-white/10 group-hover:text-purple-500/30 transition-colors shrink-0">02</div>
+                        <div>
+                            <h4 class="text-lg font-bold uppercase tracking-tight mb-2">Visual Mastery</h4>
+                            <p class="text-sm text-white/40 leading-relaxed italic">Овладение инструментами для генерации. Построение сложных композиций, работа с параметрами и стилями.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Шаг 3 -->
+                <div class="glass-card p-8 reveal group cursor-default">
+                    <div class="flex gap-8 items-center">
+                        <div class="text-4xl font-display font-black text-white/10 group-hover:text-pink-500/30 transition-colors shrink-0">03</div>
+                        <div>
+                            <h4 class="text-lg font-bold uppercase tracking-tight mb-2">Multimodal: Моделирование</h4>
+                            <p class="text-sm text-white/40 leading-relaxed italic">Синтез контента. Озвучка текста эмоционально-окрашенным голосом, анимация изображений, разработка собственных продуктов</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Шаг 4 -->
+                <div class="glass-card p-8 reveal group cursor-default border-indigo-500/30">
+                    <div class="flex gap-8 items-center">
+                        <div class="text-4xl font-display font-black text-white/10 group-hover:text-indigo-400/30 transition-colors shrink-0">04</div>
+                        <div>
+                            <h4 class="text-lg font-bold uppercase tracking-tight mb-2">Final: Проектный Хакатон</h4>
+                            <p class="text-sm text-white/40 leading-relaxed italic">Разработка и защита итоговой работы. Упаковка проекта в кейс для портфолио и презентация нейро-решения.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Финальный призыв (Портал) -->
+    <section id="join" class="py-40 relative overflow-hidden">
+        <div class="aurora-container opacity-20">
+            <div class="aurora-blob bg-indigo-500 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="max-w-4xl mx-auto space-y-12">
+                <div class="inline-block glass-card px-8 py-3 bg-white/5 reveal">
+                    <span class="text-[10px] font-black uppercase tracking-[0.5em]">Вход в экосистему открыт</span>
+                </div>
+                
+                <h2 class="text-5xl md:text-[100px] font-display font-black italic uppercase leading-none reveal">
+                    Стань <br><span class="vibrant-gradient-text italic">Автором</span>
+                </h2>
+                
+                <p class="text-white/40 max-w-xl mx-auto text-sm md:text-base font-light reveal">
+                    Места ограничены форматом индивидуального наставничества. <br>Мы отбираем участников по мотивационным анкетам.
+                </p>
+
+                <div class="flex flex-col md:flex-row justify-center items-center gap-6 reveal">
+                    <a href="https://domofoneleto.glide.page">
+                    <button class="w-full md:w-auto bg-indigo-600 text-white font-black uppercase text-[10px] px-12 py-6 rounded-full tracking-[0.3em] hover:bg-indigo-500 transition-all hover:shadow-[0_0_50px_rgba(79,70,229,0.5)]">
+                        Подать анкету участника
+                    </button>
+                    </a>
+                    <button class="w-full md:w-auto border border-white/20 text-white font-black uppercase text-[10px] px-12 py-6 rounded-full tracking-[0.3em] hover:bg-white/5 transition-all">
+                        Скачать Syllabus
+                    </button>
+                </div>
+                
+                <div class="pt-20 reveal">
+                    <div class="glow-line opacity-20"></div>
+                    <div class="mt-8 flex flex-wrap justify-center gap-12 grayscale opacity-30 hover:grayscale-0 hover:opacity-60 transition-all duration-700">
+                        <span class="font-display font-black italic text-lg tracking-tighter">DOMOFONE</span>
+                        <span class="font-display font-black italic text-lg tracking-tighter uppercase">IT-CUBE</span>
+                        <span class="font-display font-black italic text-lg tracking-tighter">НЕЙРОИНТЕНСИВЫ</span>
+                        <span class="font-display font-black italic text-lg tracking-tighter">МАОУ "СОШ №5". Черняховск</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Грамотное завершение) -->
+    <footer class="py-20 bg-black/40 border-t border-white/5 backdrop-blur-md">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-16 items-start mb-20">
+                <div class="space-y-6">
+                    <div class="font-display font-black text-2xl italic uppercase tracking-tighter">
+                        Нейро<span class="text-indigo-400">Интенсивы</span>
+                    </div>
+                    <p class="text-[11px] text-white/30 uppercase leading-loose tracking-widest">
+                        Образовательная лаборатория по освоению генеративных технологий. Место силы цифровых художников и архитекторов смыслов.
+                    </p>
+                </div>
+                <div class="space-y-6">
+                    <h5 class="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400">Навигация</h5>
+                    <ul class="space-y-4 text-xs font-medium text-white/50">
+                        <li><a href="#about" class="hover:text-white transition-colors">О проекте</a></li>
+                        <li><a href="#philosophy" class="hover:text-white transition-colors">Манифест</a></li>
+                        <li><a href="#vectors" class="hover:text-white transition-colors">Векторы обучения</a></li>
+                        <li><a href="#program" class="hover:text-white transition-colors">Учебный план</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-6">
+                    <h5 class="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400">Локация и Связь</h5>
+                    <div class="text-xs text-white/50 space-y-4">
+                        <p>Калининградская обл., г. Черняховск</p>
+                        <p class="text-white font-bold tracking-widest">hello@neurointensiv.ru</p>
+                        <div class="flex gap-4 pt-4">
+                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.29.29-.44.29l.195-2.81 5.12-4.628c.222-.196-.054-.304-.346-.108l-6.32 3.98-2.715-.847c-.59-.186-.6-.59.124-.872l10.6-4.088c.49-.186.92.108.721.898z"/></svg>
+                            </a>
+                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors text-[10px] font-bold">VK</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t border-white/5">
+                <div class="text-[9px] font-bold uppercase tracking-[0.3em] text-white/20">
+                    2024 © Domofone • Creative Unit
+                </div>
+                <div class="flex gap-10 text-[9px] font-bold uppercase tracking-[0.3em] text-white/20">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Smooth scroll для навигации
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
